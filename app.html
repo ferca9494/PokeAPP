@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/global/jquery-3.6.0.js"></script>
+    <script src="js/app.js" type="module"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <style>
+        #tooltip {
+            background: #333;
+            color: white;
+            font-weight: bold;
+            padding: 4px 8px;
+            font-size: 13px;
+            border-radius: 4px;
+        }
+
+        #tooltip {
+            /* ... */
+            display: none;
+        }
+
+        #tooltip[data-show] {
+            display: block;
+        }
+    </style>
+
+    <script>
+        $(document).ready(() => {
+            $("#poke_gen_form").hide()
+
+
+            $("#poke_color_btn").click(() => {
+                $("#poke_gen_form").hide()
+                $("#poke_color_form").show()
+
+                $("#poke_gen_btn").removeClass("select")
+                $("#poke_color_btn").addClass("select")
+            })
+            $("#poke_gen_btn").click(() => {
+                $("#poke_gen_form").show()
+                $("#poke_color_form").hide()
+
+                $("#poke_gen_btn").addClass("select")
+                $("#poke_color_btn").removeClass("select")
+            })
+        })
+    </script>
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/background.css">
+    <title>POKEAPP</title>
+</head>
+
+<body>
+    <div id="tooltip" role="tooltip">My tooltip</div>
+    <div id="Content">
+        <h1>POKEAPP</h1>
+        <ul id="nav-bar">
+            <li id="poke_color_btn" class="select">color</li>
+            <li id="poke_gen_btn">generacion</li>
+        </ul>
+        <div id="poke_color_form" class="form">
+            ingresa un color:<br>
+            <select id="poke_color">
+                <option value="0">Selecciona color...</option>
+            </select>
+            <span id="message"></span>
+        </div>
+        <div id="poke_gen_form" style="display:none" class="form">
+            ingresa una generacion:<br>
+            <select id="poke_gen">
+                <option value="0">Selecciona una generacion...</option>
+            </select>
+            <span id="message"></span>
+        </div>
+        <div id="poke_info" style="display: none;">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit vel perspiciatis nihil quam necessitatibus adipisci amet cupiditate odit repudiandae ipsa. Ipsum quia odio, accusamus fuga cupiditate ipsa quibusdam soluta repellat.
+        </div>
+        <div id="poke_cards">
+        </div>
+    </div>
+
+    <!--background-->
+    <div class="wrap">
+        <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="512px" height="512px" viewBox="0 0 512 512"
+            data-name="Layer 1" id="Layer_1">
+            <title />
+            <path
+                d="M450.46,256.09C449.35,175.17,399.81,102.71,324,73.79,247.59,44.67,157.49,69,105.82,132.13,54.4,195,46.61,285.58,88.49,355.68c41.8,69.95,123.74,106,203.55,91.63,91-16.37,156.14-98.12,158.35-189.14A20.16,20.16,0,0,0,450.46,256.09ZM119.05,174.38C152.76,118,220.23,87,285,99.43c69.4,13.29,120.43,70.47,128.83,139H318.41c-8.26-27.36-32-48-62.62-48-29.65,0-55.15,20.65-63.11,48H97.74A158,158,0,0,1,119.05,174.38ZM286.13,256.1c-2,38.75-60.67,39.4-60.67,0S284.17,217.33,286.13,256.1Zm24,149.79C246.85,428.58,175,408.74,132.3,356.82a157.53,157.53,0,0,1-34.57-83H192.6c7.91,27.39,33.7,48,63.19,48,30.67,0,54.36-20.68,62.62-48h95.45C406.61,333,367.54,385.32,310.14,405.89Z" />
+        </svg>
+        <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="512px" height="512px" viewBox="0 0 512 512"
+            data-name="Layer 1" id="Layer_1">
+            <title />
+            <path
+                d="M450.46,256.09C449.35,175.17,399.81,102.71,324,73.79,247.59,44.67,157.49,69,105.82,132.13,54.4,195,46.61,285.58,88.49,355.68c41.8,69.95,123.74,106,203.55,91.63,91-16.37,156.14-98.12,158.35-189.14A20.16,20.16,0,0,0,450.46,256.09ZM119.05,174.38C152.76,118,220.23,87,285,99.43c69.4,13.29,120.43,70.47,128.83,139H318.41c-8.26-27.36-32-48-62.62-48-29.65,0-55.15,20.65-63.11,48H97.74A158,158,0,0,1,119.05,174.38ZM286.13,256.1c-2,38.75-60.67,39.4-60.67,0S284.17,217.33,286.13,256.1Zm24,149.79C246.85,428.58,175,408.74,132.3,356.82a157.53,157.53,0,0,1-34.57-83H192.6c7.91,27.39,33.7,48,63.19,48,30.67,0,54.36-20.68,62.62-48h95.45C406.61,333,367.54,385.32,310.14,405.89Z" />
+        </svg>
+        <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="512px" height="512px" viewBox="0 0 512 512"
+            data-name="Layer 1" id="Layer_1">
+            <title />
+            <path
+                d="M450.46,256.09C449.35,175.17,399.81,102.71,324,73.79,247.59,44.67,157.49,69,105.82,132.13,54.4,195,46.61,285.58,88.49,355.68c41.8,69.95,123.74,106,203.55,91.63,91-16.37,156.14-98.12,158.35-189.14A20.16,20.16,0,0,0,450.46,256.09ZM119.05,174.38C152.76,118,220.23,87,285,99.43c69.4,13.29,120.43,70.47,128.83,139H318.41c-8.26-27.36-32-48-62.62-48-29.65,0-55.15,20.65-63.11,48H97.74A158,158,0,0,1,119.05,174.38ZM286.13,256.1c-2,38.75-60.67,39.4-60.67,0S284.17,217.33,286.13,256.1Zm24,149.79C246.85,428.58,175,408.74,132.3,356.82a157.53,157.53,0,0,1-34.57-83H192.6c7.91,27.39,33.7,48,63.19,48,30.67,0,54.36-20.68,62.62-48h95.45C406.61,333,367.54,385.32,310.14,405.89Z" />
+        </svg>
+        <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="512px" height="512px" viewBox="0 0 512 512"
+            data-name="Layer 1" id="Layer_1">
+            <title />
+            <path
+                d="M450.46,256.09C449.35,175.17,399.81,102.71,324,73.79,247.59,44.67,157.49,69,105.82,132.13,54.4,195,46.61,285.58,88.49,355.68c41.8,69.95,123.74,106,203.55,91.63,91-16.37,156.14-98.12,158.35-189.14A20.16,20.16,0,0,0,450.46,256.09ZM119.05,174.38C152.76,118,220.23,87,285,99.43c69.4,13.29,120.43,70.47,128.83,139H318.41c-8.26-27.36-32-48-62.62-48-29.65,0-55.15,20.65-63.11,48H97.74A158,158,0,0,1,119.05,174.38ZM286.13,256.1c-2,38.75-60.67,39.4-60.67,0S284.17,217.33,286.13,256.1Zm24,149.79C246.85,428.58,175,408.74,132.3,356.82a157.53,157.53,0,0,1-34.57-83H192.6c7.91,27.39,33.7,48,63.19,48,30.67,0,54.36-20.68,62.62-48h95.45C406.61,333,367.54,385.32,310.14,405.89Z" />
+        </svg>
+        <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="512px" height="512px" viewBox="0 0 512 512"
+            data-name="Layer 1" id="Layer_1">
+            <title />
+            <path
+                d="M450.46,256.09C449.35,175.17,399.81,102.71,324,73.79,247.59,44.67,157.49,69,105.82,132.13,54.4,195,46.61,285.58,88.49,355.68c41.8,69.95,123.74,106,203.55,91.63,91-16.37,156.14-98.12,158.35-189.14A20.16,20.16,0,0,0,450.46,256.09ZM119.05,174.38C152.76,118,220.23,87,285,99.43c69.4,13.29,120.43,70.47,128.83,139H318.41c-8.26-27.36-32-48-62.62-48-29.65,0-55.15,20.65-63.11,48H97.74A158,158,0,0,1,119.05,174.38ZM286.13,256.1c-2,38.75-60.67,39.4-60.67,0S284.17,217.33,286.13,256.1Zm24,149.79C246.85,428.58,175,408.74,132.3,356.82a157.53,157.53,0,0,1-34.57-83H192.6c7.91,27.39,33.7,48,63.19,48,30.67,0,54.36-20.68,62.62-48h95.45C406.61,333,367.54,385.32,310.14,405.89Z" />
+        </svg>
+        <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="512px" height="512px" viewBox="0 0 512 512"
+            data-name="Layer 1" id="Layer_1">
+            <title />
+            <path
+                d="M450.46,256.09C449.35,175.17,399.81,102.71,324,73.79,247.59,44.67,157.49,69,105.82,132.13,54.4,195,46.61,285.58,88.49,355.68c41.8,69.95,123.74,106,203.55,91.63,91-16.37,156.14-98.12,158.35-189.14A20.16,20.16,0,0,0,450.46,256.09ZM119.05,174.38C152.76,118,220.23,87,285,99.43c69.4,13.29,120.43,70.47,128.83,139H318.41c-8.26-27.36-32-48-62.62-48-29.65,0-55.15,20.65-63.11,48H97.74A158,158,0,0,1,119.05,174.38ZM286.13,256.1c-2,38.75-60.67,39.4-60.67,0S284.17,217.33,286.13,256.1Zm24,149.79C246.85,428.58,175,408.74,132.3,356.82a157.53,157.53,0,0,1-34.57-83H192.6c7.91,27.39,33.7,48,63.19,48,30.67,0,54.36-20.68,62.62-48h95.45C406.61,333,367.54,385.32,310.14,405.89Z" />
+        </svg>
+        <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="512px" height="512px" viewBox="0 0 512 512"
+            data-name="Layer 1" id="Layer_1">
+            <title />
+            <path
+                d="M450.46,256.09C449.35,175.17,399.81,102.71,324,73.79,247.59,44.67,157.49,69,105.82,132.13,54.4,195,46.61,285.58,88.49,355.68c41.8,69.95,123.74,106,203.55,91.63,91-16.37,156.14-98.12,158.35-189.14A20.16,20.16,0,0,0,450.46,256.09ZM119.05,174.38C152.76,118,220.23,87,285,99.43c69.4,13.29,120.43,70.47,128.83,139H318.41c-8.26-27.36-32-48-62.62-48-29.65,0-55.15,20.65-63.11,48H97.74A158,158,0,0,1,119.05,174.38ZM286.13,256.1c-2,38.75-60.67,39.4-60.67,0S284.17,217.33,286.13,256.1Zm24,149.79C246.85,428.58,175,408.74,132.3,356.82a157.53,157.53,0,0,1-34.57-83H192.6c7.91,27.39,33.7,48,63.19,48,30.67,0,54.36-20.68,62.62-48h95.45C406.61,333,367.54,385.32,310.14,405.89Z" />
+        </svg>
+    </div>
+    <!--background-->
+
+    <script>
+        const button = document.querySelector('#poke_color_btn');
+        const tooltip = document.querySelector('#tooltip');
+
+        const popperInstance = Popper.createPopper(button, tooltip);
+        function show() {
+            tooltip.setAttribute('data-show', '');
+
+            // We need to tell Popper to update the tooltip position
+            // after we show the tooltip, otherwise it will be incorrect
+            popperInstance.update();
+        }
+
+        function hide() {
+            tooltip.removeAttribute('data-show');
+        }
+
+        const showEvents = ['mouseenter', 'focus'];
+        const hideEvents = ['mouseleave', 'blur'];
+
+        showEvents.forEach((event) => {
+            button.addEventListener(event, show);
+        });
+
+        hideEvents.forEach((event) => {
+            button.addEventListener(event, hide);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+/*==================vars===================*/
+:root {
+    --fond: rgb(0, 166, 231);
+    --form: rgb(221, 221, 221);
+    --form-dark: rgb(129, 129, 129);
+    --form-light: gainsboro;
+}
+
+/*==================FONDO===================*/
+body {
+    background-color: var(--fond);
+    font-family: Arial
+}
+
+/*==================FORM===================*/
+.form {
+    background-color: var(--form);
+    text-align: center;
+    padding: 10px;
+}
+
+.form select {
+    width: 75%;
+}
+
+/*==================nav-bar===================*/
+#nav-bar {
+    display: flex;
+    list-style: none;
+    margin-bottom: 0;
+}
+
+#nav-bar li {
+    padding: 10px;
+    background-color: var(--form-dark);
+    cursor: pointer
+}
+
+#nav-bar li.select, #nav-bar li:hover {
+    background-color: var(--form);
+}
+
+/*==================message===================*/
+#message {
+    text-align: center
+}
+
+/*==================poke_cards===================*/
+#poke_cards {
+    background-color: var(--form-light);
+    max-height: 500px;
+}
+
+#poke_cards img {
+    width: 100px;
+    height: 100px
+}
+
+.poke_card {
+    float: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.poke_infoname {
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(0, 0, 0);
+    margin: 5px;
+    padding: 2px;
+    display: none;
+    position: absolute;
+    margin-bottom: 50px;
+    animation-name: example;
+    animation-duration: 4s;
+}
+
+.poke_card:hover .poke_infoname {
+    display: block;
+}
+
+/*==================animations===================*/
+
+@keyframes example {
+    from {
+        background-color: red;
+    }
+
+    to {
+        background-color: yellow;
+    }
+}
+
+
+div#poke_info {
+    width: 25%;
+    background-color: #808080ad;
+    height: 400px;
+}
