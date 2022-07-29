@@ -1,6 +1,6 @@
 /*==================vars===================*/
 :root {
-    --fond: rgb(0, 166, 231);
+    --fond: rgb(255, 255, 255);
     --form: rgb(221, 221, 221);
     --form-dark: rgb(129, 129, 129);
     --form-light: gainsboro;
@@ -9,8 +9,10 @@
 /*==================FONDO===================*/
 body {
     background-color: var(--fond);
-    font-family: Arial
+    font-family: Arial;
+    margin: 0;
 }
+
 
 /*==================FORM===================*/
 .form {
@@ -47,8 +49,12 @@ body {
 
 /*==================poke_cards===================*/
 #poke_cards {
-    background-color: var(--form-light);
+   /* background-color: var(--form-light);
     max-height: 500px;
+    */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 #poke_cards img {
@@ -61,6 +67,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    background: #8080808f;
+    border-radius: 10px;
+    width: 30%;
+
+        max-width: 250px;
+    margin:5px;
 }
 
 .poke_infoname {
@@ -97,4 +110,11 @@ div#poke_info {
     width: 25%;
     background-color: #808080ad;
     height: 400px;
+    position: absolute;
+    height: 100%;
+    width: 50%;
+}
+
+#navbar{
+    padding :10px
 }

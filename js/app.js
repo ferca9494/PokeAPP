@@ -14,64 +14,99 @@ const color = [
 ]
 
 $(function () {
+    var list = list_poke_gen("generation-i")
 
-    $("#poke_color").append(array_to_htmlOption(color));
-
-    $("#poke_color").on("change", () => {
-        $("#poke_info").html("")
-        $("#poke_cards").html("")
-
-        let color = $("#poke_color").val();
-
-        console.log(color)
-
-        list_poke_colour(color).done((resp) => {
-            list_pokemons(resp.pokemon_species)
+    list.done(resp => {
+        let lista_pokemon = resp.pokemon_species
+        console.log(lista_pokemon)
+        lista_pokemon.sort((e1, e2) => {
+            let id1 = e1.url.split("/")[6]
+            let id2 = e2.url.split("/")[6]
+            return id1 - id2
         })
-
+        list_pokemons(lista_pokemon)
     })
 
-    list_poke_gen("").done((gens) => {
-        let gens_maped = gens.results.map(elem => {
-            return { id: elem.name, name: elem.name }
-        })
-        $("#poke_gen").append(array_to_htmlOption(gens_maped));
-
-        $("#poke_gen").on("change", () => {
+    /*
+        $("#poke_color").append(array_to_htmlOption(color));
+    
+        $("#poke_color").on("change", () => {
             $("#poke_info").html("")
             $("#poke_cards").html("")
-
-            let gen = $("#poke_gen").val()
-
-            list_poke_gen(gen).done(resp => {
+    
+            let color = $("#poke_color").val();
+    
+            console.log(color)
+    
+            list_poke_colour(color).done((resp) => {
                 list_pokemons(resp.pokemon_species)
             })
+    
         })
-    })
+    
+        list_poke_gen("").done((gens) => {
+            let gens_maped = gens.results.map(elem => {
+                return { id: elem.name, name: elem.name }
+            })
+            $("#poke_gen").append(array_to_htmlOption(gens_maped));
+    
+            $("#poke_gen").on("change", () => {
+                $("#poke_info").html("")
+                $("#poke_cards").html("")
+    
+                let gen = $("#poke_gen").val()
+    
+                list_poke_gen(gen).done(resp => {
+                    list_pokemons(resp.pokemon_species)
+                })
+            })
+        })
+        */
 
 })
 
-
+async function inicializar() {
+    var list = await list_poke_gen("generation-i")
+    //list.done( resp => {
+    //     list_pokemons(resp.pokemon_species)
+    //})
+}
 
 
 function list_pokemons(list) {
-    list.forEach(elem => {
-        find_poke(elem.name)
-            .done((poke) => {
+    var cards = [] 
+    list.forEach(async elem => {
+        var poke = await find_poke(elem.name)
+        elem.image = poke.sprites.front_default
 
-                $("#poke_cards").append(
-                    `<div class="poke_card">             
+        cards.push(elem)
+        /*
+        poke.done((poke) => {
+
+            $("#poke_cards").append(
+                `<div class="poke_card">             
                         <img class="poke_img" src="${poke.sprites.front_default}" alt="${elem.name}"/>
                         <span class="poke_infoname" >${elem.name}</span>
                     </div>`
-                )
+            )
 
-            })
+        })
             .fail(resp => {
                 console.log("error :CC");
             })
+            */
     })
+    console.log(cards)
+    cards.forEach( elem => {
+       
+        $("#poke_cards").append(
+            `<div class="poke_card">             
+                    <img class="poke_img" src="${elem.image}" alt="${elem.name}"/>
+                    <span class="poke_infoname" >${elem.name}</span>
+                </div>`
+        )
 
+    })
     $(".poke_card").click(() => {
         $("#poke_info").html("pika")
         $("#poke_info").slideDown()
@@ -96,3 +131,9 @@ function poke_events() {
         });
     })
 }
+
+
+$("#navmenu").click(() => {
+    $("#navmenu").toggleClass("active")
+   // $("#poke_info").toggle()
+})
