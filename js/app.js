@@ -13,18 +13,21 @@ const color = [
     { id: "white", name: "Blanco" }
 ]
 
+var cardslist = []
+
 $(function () {
     var list = list_poke_gen("generation-i")
 
-    list.done(resp => {
-        let lista_pokemon = resp.pokemon_species
-        console.log(lista_pokemon)
-        lista_pokemon.sort((e1, e2) => {
-            let id1 = e1.url.split("/")[6]
-            let id2 = e2.url.split("/")[6]
-            return id1 - id2
-        })
-        list_pokemons(lista_pokemon)
+    list.done(async resp => {
+        let especies_pokemon = resp.pokemon_species      
+        await get_list_pokemons(especies_pokemon)
+        render_cards()
+        loading()
+    })
+
+    $(".poke_card").click(() => {
+        $("#poke_info").html("pika")
+        $("#poke_info").slideDown()
     })
 
     /*
@@ -73,13 +76,46 @@ async function inicializar() {
 }
 
 
-function list_pokemons(list) {
-    var cards = [] 
+async function get_list_pokemons(list) {
+
+    list.sort((e1, e2) => {
+        let id1 = e1.url.split("/")[6]
+        let id2 = e2.url.split("/")[6]
+    
+        return id1 - id2
+    })
+
+
+    for(let i = 0; i < list.length ; i++)
+    {
+        var elem = list[i]
+        var poke = await find_poke(list[i].name)
+        elem.image = poke.sprites.front_default
+
+        cardslist.push(
+            {
+                id: elem.url.split("/")[6],
+                name: elem.name,
+                img: poke.sprites.front_default
+            }
+        )
+
+        console.log("push!")
+    }
+    /*
     list.forEach(async elem => {
         var poke = await find_poke(elem.name)
         elem.image = poke.sprites.front_default
 
-        cards.push(elem)
+        cardslist.push(
+            {
+                id: elem.url.split("/")[6],
+                name: elem.name,
+                img: poke.sprites.front_default
+            }
+        )
+
+        console.log("push!")
         /*
         poke.done((poke) => {
 
@@ -95,24 +131,22 @@ function list_pokemons(list) {
                 console.log("error :CC");
             })
             */
-    })
-    console.log(cards)
-    cards.forEach( elem => {
-       
+    //})
+
+}
+function render_cards() {
+    console.log(cardslist)
+    cardslist.forEach(elem => {
+
         $("#poke_cards").append(
             `<div class="poke_card">             
-                    <img class="poke_img" src="${elem.image}" alt="${elem.name}"/>
-                    <span class="poke_infoname" >${elem.name}</span>
-                </div>`
+                <img class="poke_img" src="${elem.img}" alt="${elem.name}"/>
+                <span class="poke_infoname" >${elem.name}</span>
+             </div>`
         )
 
     })
-    $(".poke_card").click(() => {
-        $("#poke_info").html("pika")
-        $("#poke_info").slideDown()
-    })
 }
-
 
 function array_to_htmlOption(array) {
     let options = ""
@@ -132,8 +166,12 @@ function poke_events() {
     })
 }
 
+function loading()
+{
+    $(".loading").toggle()
+}
 
 $("#navmenu").click(() => {
     $("#navmenu").toggleClass("active")
-   // $("#poke_info").toggle()
+    $("#poke_info").toggle()
 })

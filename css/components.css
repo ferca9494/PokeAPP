@@ -45,3 +45,29 @@
 #navmenu.active>span:nth-child(3) {
     transform: translateY(-9px) rotate(90deg);
 }
+
+/*LOADING */
+
+div.loading .svg_loading{
+    position: absolute;
+    z-index: 10;
+    scroll-snap-align: center;
+    width: 100%;
+    top: 100px;
+    animation: catching_loading 1s infinite;
+}
+
+@keyframes catching_loading {
+    0%{
+        rotate:0deg;
+    }
+    25%{
+        rotate:20deg;
+    }
+    75%{
+        rotate:-20deg;
+    }
+    100%{
+        rotate:0deg;
+    }
+}
