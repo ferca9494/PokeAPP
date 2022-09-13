@@ -105,18 +105,70 @@ body {
     }
 }
 
-
-div#poke_info {
+div#info_contacto {
     width: 25%;
     background-color: #808080ad;
     height: 400px;
     position: absolute;
     height: 100%;
     z-index: 20;
-    padding:50px;
+    padding: 50px;
     width: 50%;
 }
 
+
+
 #navbar {
-    padding: 10px
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/*modal*/
+
+div#modal_container {
+    background-color: #000000ad;
+    height: 100;
+    position: fixed;
+    height: 100%;
+    z-index: 20;
+    padding: 50px;
+    width: 100%;
+    display: none;
+}
+
+div#modal_container div#modal_nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+div#modal_container h2#modal_title {
+    text-align: center;
+}
+
+div#modal_container div#modal_box {
+    background: #ffffffbd;
+    display: flex;
+    flex-direction: column;
+}
+div#modal_container div#modal_content {
+    display: flex;
+    flex-direction: row;
+}
+
+div#modal_container div#modal_box div#modal_img {
+    width: 30%;
+}
+
+div#modal_container div#modal_box div#modal_img img{
+    width: 100%;
+}
+
+div#modal_container div#modal_box div#modal_info {
+    width: 70%;
 }

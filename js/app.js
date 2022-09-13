@@ -1,177 +1,124 @@
-import { list_poke_colour, list_poke_gen, find_poke } from "./pokeapi/pokeapi.js"
+import {
+  list_poke_colour,
+  list_poke_gen,
+  find_poke,
+} from "./pokeapi/pokeapi.js";
+
+/* GLOBAL VARS */
 
 const color = [
-    { id: "brown", name: "Marron" },
-    { id: "pink", name: "Rosa" },
-    { id: "red", name: "Rojo" },
-    { id: "yellow", name: "Amarillo" },
-    { id: "green", name: "Verde" },
-    { id: "blue", name: "Azul" },
-    { id: "purple", name: "Violeta" },
-    { id: "black", name: "Negro" },
-    { id: "gray", name: "Gris" },
-    { id: "white", name: "Blanco" }
-]
+  { id: "brown", name: "Marron" },
+  { id: "pink", name: "Rosa" },
+  { id: "red", name: "Rojo" },
+  { id: "yellow", name: "Amarillo" },
+  { id: "green", name: "Verde" },
+  { id: "blue", name: "Azul" },
+  { id: "purple", name: "Violeta" },
+  { id: "black", name: "Negro" },
+  { id: "gray", name: "Gris" },
+  { id: "white", name: "Blanco" },
+];
 
-var cardslist = []
+var list_data_pokemons = [];
+var cardslist = [];
+
+/* EVENTOS */
 
 $(function () {
-    var list = list_poke_gen("generation-i")
+  var list = list_poke_gen("generation-i");
 
-    list.done(async resp => {
-        let especies_pokemon = resp.pokemon_species      
-        await get_list_pokemons(especies_pokemon)
-        render_cards()
-        loading()
-    })
+  list.done(async (resp) => {
+    let especies_pokemon = resp.pokemon_species;
+    cardslist = await get_list_pokemons(especies_pokemon);
 
-    $(".poke_card").click(() => {
-        $("#poke_info").html("pika")
-        $("#poke_info").slideDown()
-    })
+    render_cards();
+    loading();
 
-    /*
-        $("#poke_color").append(array_to_htmlOption(color));
-    
-        $("#poke_color").on("change", () => {
-            $("#poke_info").html("")
-            $("#poke_cards").html("")
-    
-            let color = $("#poke_color").val();
-    
-            console.log(color)
-    
-            list_poke_colour(color).done((resp) => {
-                list_pokemons(resp.pokemon_species)
-            })
-    
-        })
-    
-        list_poke_gen("").done((gens) => {
-            let gens_maped = gens.results.map(elem => {
-                return { id: elem.name, name: elem.name }
-            })
-            $("#poke_gen").append(array_to_htmlOption(gens_maped));
-    
-            $("#poke_gen").on("change", () => {
-                $("#poke_info").html("")
-                $("#poke_cards").html("")
-    
-                let gen = $("#poke_gen").val()
-    
-                list_poke_gen(gen).done(resp => {
-                    list_pokemons(resp.pokemon_species)
-                })
-            })
-        })
-        */
+    $("div.poke_card").click((e) => {
+      let attr = e.currentTarget.attributes;
+      let id = attr.pokemonID.value;
+      let name = attr.pokemonNAME.value;
 
-})
+      //speak("Pokemon numero " + id + " " + name);
 
-async function inicializar() {
-    var list = await list_poke_gen("generation-i")
-    //list.done( resp => {
-    //     list_pokemons(resp.pokemon_species)
-    //})
-}
+      render_info(id, name);
+    });
 
-
-async function get_list_pokemons(list) {
-
-    list.sort((e1, e2) => {
-        let id1 = e1.url.split("/")[6]
-        let id2 = e2.url.split("/")[6]
-    
-        return id1 - id2
-    })
-
-
-    for(let i = 0; i < list.length ; i++)
-    {
-        var elem = list[i]
-        var poke = await find_poke(list[i].name)
-        elem.image = poke.sprites.front_default
-
-        cardslist.push(
-            {
-                id: elem.url.split("/")[6],
-                name: elem.name,
-                img: poke.sprites.front_default
-            }
-        )
-
-        console.log("push!")
-    }
-    /*
-    list.forEach(async elem => {
-        var poke = await find_poke(elem.name)
-        elem.image = poke.sprites.front_default
-
-        cardslist.push(
-            {
-                id: elem.url.split("/")[6],
-                name: elem.name,
-                img: poke.sprites.front_default
-            }
-        )
-
-        console.log("push!")
-        /*
-        poke.done((poke) => {
-
-            $("#poke_cards").append(
-                `<div class="poke_card">             
-                        <img class="poke_img" src="${poke.sprites.front_default}" alt="${elem.name}"/>
-                        <span class="poke_infoname" >${elem.name}</span>
-                    </div>`
-            )
-
-        })
-            .fail(resp => {
-                console.log("error :CC");
-            })
-            */
-    //})
-
-}
-function render_cards() {
-    console.log(cardslist)
-    cardslist.forEach(elem => {
-
-        $("#poke_cards").append(
-            `<div class="poke_card">             
-                <img class="poke_img" src="${elem.img}" alt="${elem.name}"/>
-                <span class="poke_infoname" >${elem.name}</span>
-             </div>`
-        )
-
-    })
-}
-
-function array_to_htmlOption(array) {
-    let options = ""
-    array.forEach(function (elem) {
-        options += `<option value="${elem.id}">${elem.name}</option>`
-    })
-    return options;
-}
-
-function poke_events() {
-    let pokecards = $("#poke_cards").children()
-    pokecards.forEach(elem => {
-        elem.click(() => {
-
-            console.log("click pokemon")
-        });
-    })
-}
-
-function loading()
-{
-    $(".loading").toggle()
-}
+    console.log(cardslist);
+    console.log(list_data_pokemons);
+  });
+});
 
 $("#navmenu").click(() => {
-    $("#navmenu").toggleClass("active")
-    $("#poke_info").toggle()
+  $("#navmenu").toggleClass("active");
+  $("#poke_info").toggle();
+});
+
+$("#modal_close_btn").click(()=>{
+    $("#modal_container").hide();
 })
+
+/* FUNCTIONS */
+
+async function get_list_pokemons(list) {
+  list.sort((e1, e2) => {
+    let id1 = e1.url.split("/")[6];
+    let id2 = e2.url.split("/")[6];
+
+    return id1 - id2;
+  });
+
+  let max = 10; //list.length
+  let elements = [];
+
+  for (let i = 0; i < max; i++) {
+    var elem = list[i];
+    var poke = await find_poke(list[i].name);
+
+    list_data_pokemons.push(poke);
+
+    //elem.image = poke.sprites.other["official-artwork"].front_default;
+    elem.image = poke.sprites.front_default;
+
+    elements.push({
+      id: elem.url.split("/")[6],
+      name: elem.name,
+      img: elem.image,
+    });
+
+    console.log("push!");
+  }
+
+  return elements;
+}
+
+function render_cards() {
+  cardslist.forEach((elem) => {
+    $("#poke_cards").append(
+      `<div class="poke_card" 
+        pokemonID="${elem.id}" 
+        pokemonNAME="${elem.name}"
+      >             
+            <img class="poke_img" src="${elem.img}" alt="${elem.name}"/>
+            <span class="poke_infoname" >${elem.name}</span>
+        </div>`
+    );
+  });
+}
+
+function render_info(id, name) {
+  let pokemon_data = list_data_pokemons.find((e) => (e.id == id));
+
+  $("#modal_title").html(`#${id} ${name}`);
+  $("#modal_img").html(`
+        <img src="${pokemon_data.sprites.other["official-artwork"].front_default}"/>
+        `);
+        $("#modal_info").html(`
+        <p>sarasaaaaaaaaaaaaaaaaaaaaaa</p>
+        `);
+  $("#modal_container").show();
+}
+
+function loading() {
+  $(".loading").toggle();
+}
