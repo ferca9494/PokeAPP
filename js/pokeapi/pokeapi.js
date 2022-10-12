@@ -13,3 +13,6 @@ export  function list_poke_gen(gen) {
     return  request("https://pokeapi.co/api/v2/generation/" + gen)
 }
 
+export  function find_poke_species(name) {
+    return  request("https://pokeapi.co/api/v2/pokemon-species/" + name)
+}

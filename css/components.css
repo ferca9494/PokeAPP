@@ -48,7 +48,7 @@
 
 /*LOADING */
 
-div.loading .svg_loading{
+div.loading .svg_loading {
     position: absolute;
     z-index: 10;
     scroll-snap-align: center;
@@ -58,16 +58,45 @@ div.loading .svg_loading{
 }
 
 @keyframes catching_loading {
-    0%{
-        rotate:0deg;
+    0% {
+        rotate: 0deg;
     }
-    25%{
-        rotate:20deg;
+
+    25% {
+        rotate: 20deg;
     }
-    75%{
-        rotate:-20deg;
+
+    75% {
+        rotate: -20deg;
     }
-    100%{
-        rotate:0deg;
+
+    100% {
+        rotate: 0deg;
     }
+}
+
+
+/*static_cross*/
+
+.static_cross {
+    width: 28px;
+    height: 28px;
+}
+
+.static_cross>span {
+    display: block;
+    width: 28px;
+    height: 2px;
+    border-radius: 9999px;
+    background: black;
+    margin-top: 13px
+}
+
+.static_cross>span:nth-child(1) {
+    rotate: 45deg;
+}
+
+.static_cross>span:nth-child(2) {
+    rotate: 130deg;
+    margin-top: -2px;
 }

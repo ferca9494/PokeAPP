@@ -143,8 +143,9 @@ div#modal_container {
 
 div#modal_container div#modal_nav {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
+    padding: 10px;
 }
 
 div#modal_container h2#modal_title {
@@ -152,9 +153,12 @@ div#modal_container h2#modal_title {
 }
 
 div#modal_container div#modal_box {
-    background: #ffffffbd;
+    background: #ffffffa1;
     display: flex;
     flex-direction: column;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    padding: 10px;
 }
 div#modal_container div#modal_content {
     display: flex;
@@ -171,4 +175,11 @@ div#modal_container div#modal_box div#modal_img img{
 
 div#modal_container div#modal_box div#modal_info {
     width: 70%;
+}
+
+
+span.tipo{
+    background: gray;
+    padding: 5px;
+    border-radius: 10px;
 }
