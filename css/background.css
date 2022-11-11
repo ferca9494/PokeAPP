@@ -4,8 +4,6 @@
     box-sizing: border-box;
 }
 
-
-
 .wrap {
     perspective-origin: 50% 50%;
 }
@@ -31,7 +29,7 @@
 
 .svg {
     stroke: #ffffff;
-    position: absolute;
+    position: fixed;
     bottom: -100vh;
     transform-style: preserve-3d;
 }

@@ -11,8 +11,12 @@ body {
     background-color: var(--fond);
     font-family: Arial;
     margin: 0;
+    overflow-x: hidden;
 }
 
+h2 {
+    margin: 0;
+}
 
 /*==================FORM===================*/
 .form {
@@ -55,6 +59,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 #poke_cards img {
@@ -63,7 +68,6 @@ body {
 }
 
 .poke_card {
-    float: left;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -74,19 +78,25 @@ body {
     margin: 5px;
     backdrop-filter: blur(10px);
     border: 1px solid #bfbfbf;
+    justify-content: space-around;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+@media (max-width:500px) {
+    .poke_card {
+        flex-direction: column;
+    }
 }
 
 .poke_infoname {
-    background: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    border: 1px solid rgb(0, 0, 0);
-    margin: 5px;
-    padding: 2px;
     display: none;
-    position: absolute;
-    margin-bottom: 50px;
-    animation-name: example;
-    animation-duration: 4s;
+    font-size: 20px;
+    text-shadow: 2px 2px 0px black;
+    color: white;
+    font-size: 18px;
+    width: 75%;
+    animation: example 0.5s;
 }
 
 .poke_card:hover .poke_infoname {
@@ -97,25 +107,37 @@ body {
 
 @keyframes example {
     from {
-        background-color: red;
+        opacity: 0;
     }
 
     to {
-        background-color: yellow;
+        opacity: 1;
     }
 }
 
-div#info_contacto {
-    width: 25%;
-    background-color: #808080ad;
-    height: 400px;
-    position: absolute;
+div#menu {
+    background: #bdbdbda1;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(7px);
+    padding: 10px;
+    position: fixed;
+    z-index: 10;
+    align-self: end;
+    min-width: 25%;
     height: 100%;
     z-index: 20;
-    padding: 50px;
-    width: 50%;
 }
 
+div#menu_flex {
+    visibility: hidden;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+    position: fixed;
+    z-index: 20;
+}
 
 
 #navbar {
@@ -160,6 +182,7 @@ div#modal_container div#modal_box {
     backdrop-filter: blur(12px);
     padding: 10px;
 }
+
 div#modal_container div#modal_content {
     display: flex;
     flex-direction: row;
@@ -169,17 +192,41 @@ div#modal_container div#modal_box div#modal_img {
     width: 30%;
 }
 
-div#modal_container div#modal_box div#modal_img img{
+div#modal_container div#modal_box div#modal_img img {
     width: 100%;
 }
 
 div#modal_container div#modal_box div#modal_info {
     width: 70%;
+    overflow-x: clip;
+    overflow-y: scroll;
+    max-height: 400px;
+    font-family: monospace;
 }
 
 
-span.tipo{
+span.tipo {
     background: gray;
     padding: 5px;
     border-radius: 10px;
+    color: white
+}
+
+.load_percent {
+    position: fixed;
+    z-index: 10;
+    scroll-snap-align: center;
+    width: 100%;
+    top: 250px;
+    left: 48%;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+div#iconbar {
+    display: flex;
+    width: 25%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
 }

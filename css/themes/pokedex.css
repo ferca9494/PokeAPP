@@ -1,0 +1,27 @@
+#modal_info{
+    color: white;
+    background: black;
+    border: 10px solid white;
+    border-style: inset;
+    margin: 0 0 0 20px;
+    padding: 10px;
+}
+
+#modal_img img{
+    background: #00a1ff;
+    border: 10px solid white;
+    border-style: inset;
+}
+
+#modal_box{
+    background: #db0b2d;
+}
+
+#modal_nav{
+    color: white;
+    background: black;
+    border: 10px solid white;
+    border-style: inset;
+    height: 80px;
+    margin-bottom: 20px;
+}
