@@ -40,44 +40,127 @@ const types = [
 ];
 
 var selected_pokemon_data = {};
+var cardslist_original = [];
 var cardslist = [];
 var PS = new pokeapiService();
 var PC = new pokeapiCall();
-
+var actual_filter = 0;
+var actual_generation = 1;
+var actual_filter_color = 0;
+var actual_filter_type = 0;
 /* EVENTOS */
 
-$(document).ready(() => {
-  loading_porcent(PS.list_data_pokemons,MAX);
-  PC.listByGeneration("generation-i").done(async (resp) => {
-    let especies_pokemon = resp.pokemon_species;
-    cardslist = await PS.ordenar_para_lista(especies_pokemon, MAX);
+$(document).ready(async () => {
+  
+  await filtrar_porGeneracion(1)
 
-    render_cards();
-    loading();
-
-    $("div.poke_card").click(async (e) => {
-      let attr = e.currentTarget.attributes;
-      let id = attr.pokemonID.value;
-      let name = attr.pokemonNAME.value;
-
-      selected_pokemon_data = await PC.getSpecie(name);
-
-      // speak("Pokemon numero " + id + " " + name);
-      // speak(selected_pokemon_data.flavor_text_entries[0].flavor_text);
-
-      console.log(selected_pokemon_data);
-
-      render_info(id, name);
-    });
-
-    console.log(cardslist,PS.list_data_pokemons);
-
-  });
 });
+
+$("#filter").click(function (e) {
+  let options = ["ALL", "CAP", "TYP", "COL"];
+
+  if (actual_filter == options.length - 1) actual_filter = 0;
+  else actual_filter++;
+
+  $("#filter").html(options[actual_filter]);
+
+  switch (actual_filter) {
+    case 0:
+      cardslist = cardslist_original
+      render_cards()
+      break;
+    case 1:
+      break;
+    case 2:
+      $("#fil_type").show();
+      break;
+    case 3:
+      $("#fil_color").show();
+      break;
+  }
+
+  if (actual_filter != 2) $("#fil_type").hide();
+  if (actual_filter != 3) $("#fil_color").hide();
+});
+
+$("#fil_type").click(function (e) {
+  if (actual_filter_type == types.length - 1) actual_filter_type = 0;
+  else actual_filter_type++;
+
+  $("#fil_type").html(types[actual_filter_type].name);
+
+  filtrar_porTipo(types[actual_filter_type].id);
+
+  render_cards();
+});
+
+$("#fil_color").click(async function (e) {
+  if (actual_filter_color == color.length - 1) actual_filter_color = 0;
+  else actual_filter_color++;
+
+  $("#fil_color").html(color[actual_filter_color].name);
+
+  await filtrar_porColor(color[actual_filter_color].id);
+
+  render_cards();
+});
+
+$("#change_gen").click(async function (e) {
+  if (actual_generation == 8) actual_generation = 1;
+  else actual_generation++;
+
+  $("#change_gen").html("GEN" + actual_generation);
+
+  await filtrar_porGeneracion(actual_generation)
+
+ 
+});
+
+/* FILTROS */
+
+async function filtrar_porGeneracion(gen)
+{
+  loading_on();
+  await PC.listByGeneration(gen).done(async (resp) => {
+    let especies_pokemon = resp.pokemon_species;
+    loading_porcent(especies_pokemon, especies_pokemon.length);
+    cardslist = await PS.ordenar_para_lista(
+      especies_pokemon,
+      especies_pokemon.length
+    );
+    cardslist_original = cardslist;
+    loading_off();
+    render_cards();
+    console.log(cardslist, PS.list_data_pokemons);
+  });
+}
+
+async function filtrar_porColor(color) {
+  let list_pokemons = await PC.listByColour(color);
+
+  cardslist = cardslist_original.filter((elem) => {
+    let pokemon_data = list_pokemons.pokemon_species.find(
+      (e) => e.name == elem.name
+    );
+    return pokemon_data != null;
+  });
+}
+
+function filtrar_porTipo(tipo) {
+  cardslist = cardslist_original.filter((elem) => {
+    let pokemon_data = PS.list_data_pokemons.find((e) => e.name == elem.name);
+    return (
+      pokemon_data.types[0].type.name == tipo ||
+      (pokemon_data.types[1] && pokemon_data.types[1].type.name == tipo)
+    );
+  });
+}
 
 /* RENDER FUNCTIONS */
 
 function render_cards() {
+  $("#poke_cards").html("");
+
   cardslist.forEach((elem) => {
     let pokemon_data = PS.list_data_pokemons.find((e) => e.name == elem.name);
     let tipos_html = get_tipo_html(pokemon_data);
@@ -95,6 +178,21 @@ function render_cards() {
         </div>
       </div>`
     );
+  });
+
+  $("div.poke_card").click(async (e) => {
+    let attr = e.currentTarget.attributes;
+    let id = attr.pokemonID.value;
+    let name = attr.pokemonNAME.value;
+
+    selected_pokemon_data = await PC.getSpecie(name);
+
+    // speak("Pokemon numero " + id + " " + name);
+    // speak(selected_pokemon_data.flavor_text_entries[0].flavor_text);
+
+    console.log(selected_pokemon_data);
+
+    render_info(id, name);
   });
 }
 

@@ -17,7 +17,7 @@
 
   <body>
     <!--loading-->
-    <div class="loading">
+    <div class="loading" style="display:none">
       <span class="load_percent">0%</span>
       <svg
         class="svg_loading"
@@ -36,9 +36,17 @@
     </div>
     <div id="menu_flex">
       <div id="menu">
+        <b>Menu</b>
         <ul>
           <li><a href="/index.html">Inicio</a></li>
           <li><a href="/game.html">Juego de la memoria</a></li>
+          <li>...</li>
+        </ul>
+        <b>Temas</b>
+        <ul>
+          <li>Tema Claro</li>
+          <li>Tema Oscuro</li>
+          <li>Pokedex</li>
           <li>...</li>
         </ul>
         <hr />
@@ -74,11 +82,17 @@
       </div>
     </div>
     <div id="navbar">
-      <h2>POKEAPP</h2>
-      <div id="navmenu" onclick="toggle_menu()">
-        <span></span>
-        <span></span>
-        <span></span>
+      <h2>POKEAPP - Index</h2>
+      <div id="iconbar">
+        <div id="filter" class="icon">ALL</div>
+        <div id="fil_color" class="icon" style="display:none">RED</div>
+        <div id="fil_type" class="icon" style="display:none">PLA</div>
+        <div id="change_gen" class="icon">GEN1</div>
+        <div id="navmenu" class="icon" onclick="toggle_menu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
     </div>
     <div id="Content">

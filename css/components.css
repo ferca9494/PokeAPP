@@ -105,5 +105,6 @@ div.loading .svg_loading {
 }
 
 .icon{
-    margin : 5px
+    margin : 5px;
+    cursor: pointer;
 }

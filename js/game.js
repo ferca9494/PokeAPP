@@ -19,7 +19,7 @@ $(document).ready(() => {
     cardslist = await PS.ordenar_para_juego_memoria(especies_pokemon, MAX);
 
     set_cards();
-    loading();
+    toggle_loading();
 
     $("div.poke_card").click((e) => {
       let card_actual_revelated = {

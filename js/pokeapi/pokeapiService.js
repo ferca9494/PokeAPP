@@ -2,6 +2,7 @@ import { pokeapiCall } from "./pokeapiCalls.js";
 
 export class pokeapiService {
   list_data_pokemons = []
+  list_data_species = []
 
   async setCardElements(elem) {
     var PC = new pokeapiCall()

@@ -25,9 +25,13 @@ function close_modal() {
 
 /* LOADING FUNCTIONS */
 
-function loading() {
-  $(".wrap").toggle();
-  $(".loading").toggle();
+function loading_on() {
+  $(".wrap").hide();
+  $(".loading").show();
+}
+function loading_off() {
+  $(".wrap").show();
+  $(".loading").hide();
 }
 
 function loading_porcent(data, max) {
